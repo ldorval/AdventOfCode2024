@@ -2,9 +2,9 @@
 
 public class Day01
 {
-    public static Day01Result Solve(List<string> input)
+    public static Day01Result Solve(string input)
     {
-        var splits = input.Select(x => x.Split("   "));
+        var splits = input.AsListOfStrings().Select(x => x.Split("   ")).ToList();
         var firstList = splits.Select(x => int.Parse(x[0])).OrderBy(x => x).ToList();
         var secondList = splits.Select(x => int.Parse(x[1])).OrderBy(x => x).ToList();
 
