@@ -9,7 +9,7 @@ public class Day01
         var secondList = splits.Select(x => int.Parse(x[1])).OrderBy(x => x).ToList();
 
         return new Day01Result(
-            firstList.Select((x, i) => Math.Abs(x - secondList[i])).Sum(),
+            firstList.Select((_, i) => Math.Abs(firstList[i] - secondList[i])).Sum(),
             firstList.Select(x => x * secondList.Count(y => y == x)).Sum());
     }
     
