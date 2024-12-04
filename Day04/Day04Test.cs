@@ -10,7 +10,7 @@ public class Day04Test
     {
         Day04.SolvePart1(InputReader.ReadAll("Day04Example")).Should().Be(18);
     }
-    
+
     [Test]
     public void Day04SolutionPart1()
     {
@@ -21,5 +21,11 @@ public class Day04Test
     public void Day04Part2Example()
     {
         Day04.SolvePart2(InputReader.ReadAll("Day04Example")).Should().Be(9);
+    }
+
+    [Test]
+    public void Day04SolutionPart2()
+    {
+        Console.WriteLine(Day04.SolvePart2(InputReader.ReadAll("Day04")));
     }
 }
