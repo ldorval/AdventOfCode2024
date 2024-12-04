@@ -19,5 +19,5 @@ public static class CoordinateHelper
         };
     }
 
-    public static bool IsWithinBounds(int x, int y, int minX, int minY, int maxX, int maxY) => x >= minX && x <= maxX && y >= minY && y <= maxY;
+    public static bool IsWithinBounds(Point point, int minX, int minY, int maxX, int maxY) => point.X >= minX && point.X <= maxX && point.Y >= minY && point.Y <= maxY;
 }
