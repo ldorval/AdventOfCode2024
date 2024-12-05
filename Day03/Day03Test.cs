@@ -14,7 +14,7 @@ public class Day03Test
     [Test]
     public void Day03Solution()
     {
-        Console.WriteLine(Day03.Solve(InputReader.ReadAll("Day03"), false));
+        Console.WriteLine(Day03.Solve("Day03".ReadAll(), false));
     }
 
     [Test]
@@ -26,6 +26,6 @@ public class Day03Test
     [Test]
     public void Day03Part2Solution()
     {
-        Console.WriteLine(Day03.Solve(InputReader.ReadAll("Day03"), true));
+        Console.WriteLine(Day03.Solve("Day03".ReadAll(), true));
     }
 }
