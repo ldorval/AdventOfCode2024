@@ -7,7 +7,7 @@ public class Day06
     public static int SolvePart1(string input)
     {
         var map = input.AsListOfStrings().Select((line, y) => line.Select((c, x) => new MapPosition(x, y, c)).ToList()).ToList();
-        return GetVisitedPositions(map).VisitedPositions.DistinctBy(x => x.Position).Count();
+        return GetVisitedPositions(map).VisitedPositions.DistinctBy(x => x.Position).Count() + 1;
     }
 
     public static int SolvePart2(string input)
@@ -20,7 +20,7 @@ public class Day06
         {
             if (visitedPosition.Position.Content != '#' && visitedPosition.Position.Content != '.') continue;
             var position = visitedPosition.Position;
-            var alternateMap = map.ToList();
+            var alternateMap = input.AsListOfStrings().Select((line, y) => line.Select((c, x) => new MapPosition(x, y, c)).ToList()).ToList();
             alternateMap[position.Y][position.X] = map[position.Y][position.X] with { Content = '#' };
             results.Add(GetVisitedPositions(alternateMap));
         }
@@ -32,31 +32,31 @@ public class Day06
     {
         var currentPosition = map.Select(position => position.SingleOrDefault(x => x.Content != '#' && x.Content != '.')).Single(x => x != null);
         var currentDirection = directions.Single(direction => direction.Arrow == currentPosition.Content);
-        var visitedPositions = new List<VisitedPosition>();
+        var visitedPositions = new HashSet<VisitedPosition>();
 
         while (true)
         {
-            visitedPositions.Add(new VisitedPosition(currentPosition, currentDirection));
-
             var destinationX = currentPosition.X + currentDirection.X;
             var destinationY = currentPosition.Y + currentDirection.Y;
             var destination = destinationY < map.Count && destinationY >= 0 && destinationX < map[0].Count && destinationX >= 0 ? map[destinationY][destinationX] : null;
 
-            if (currentPosition.Content is '#' or '.')
-            {
-                // if (visitedPositions.DistinctBy(x => x.Position.Content).Count() > 1)
-                //     return new Day06Result(visitedPositions, true);
-
-                if (destination == null) break;
-            }
+            if (destination == null) break;
 
             if (destination.Content == '#')
                 currentDirection = TurnRight(currentDirection);
             else
+            {
+                var currentCount = visitedPositions.Count;
+                visitedPositions.Add(new VisitedPosition(currentPosition, currentDirection));
+                
+                if (currentCount == visitedPositions.Count)
+                    return new Day06Result(visitedPositions.ToList(), true);
+                
                 currentPosition = destination;
+            }
         }
 
-        return new Day06Result(visitedPositions, false);
+        return new Day06Result(visitedPositions.ToList(), false);
     }
 
     private static MapDirection TurnRight(MapDirection currentDirection)

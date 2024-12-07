@@ -22,4 +22,10 @@ public class Day06Test
     {
         Day06.SolvePart2("Day06Example".ReadAll()).Should().Be(6);
     }
+
+    [Test]
+    public void SolutionPart2()
+    {
+        Console.WriteLine(Day06.SolvePart2("Day06".ReadAll()));
+    }
 }
